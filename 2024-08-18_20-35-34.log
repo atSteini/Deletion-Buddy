@@ -1,0 +1,17 @@
+2024-08-18 20:35:34 | OUT:3 files in directory A (/Users/floriansteinkellner/Desktop/VSCode_Projects/Projekte/File Deleter/A)
+2024-08-18 20:35:34 | OUT:2 files in directory B (/Users/floriansteinkellner/Desktop/VSCode_Projects/Projekte/File Deleter/B)
+2024-08-18 20:35:34 | OUT:Files in Directory A (/Users/floriansteinkellner/Desktop/VSCode_Projects/Projekte/File Deleter/A): 
+2024-08-18 20:35:34 | OUT:	a.jpg
+2024-08-18 20:35:34 | OUT:	b.jpg
+2024-08-18 20:35:34 | OUT:	c.jpg
+2024-08-18 20:35:34 | OUT:Files in Directory B (/Users/floriansteinkellner/Desktop/VSCode_Projects/Projekte/File Deleter/B): 
+2024-08-18 20:35:34 | OUT:	a.nef
+2024-08-18 20:35:34 | OUT:	b.nef
+2024-08-18 20:35:34 | OUT:0 files to be deleted.
+2024-08-18 20:35:34 | OUT:Found 1 file that is in A, but not in B.
+2024-08-18 20:35:34 | OUT:	c.jpg
+2024-08-18 20:35:36 | OUT:Copy files from A to B (Y/n)? 
+2024-08-18 20:35:36 | IN:
+2024-08-18 20:35:36 | OUT:Copied c.jpg
+2024-08-18 20:35:36 | OUT:Done!
+2024-08-18 20:35:36 | OUT:Exiting...
