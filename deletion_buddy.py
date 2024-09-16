@@ -2,6 +2,8 @@ import argparse
 import os
 import inspect
 from datetime import datetime
+import shutil
+from send2trash import send2trash
 
 parser = argparse.ArgumentParser(description="Delete files from dir B which are not in dir A")
 parser.add_argument("a", type=str, help="Source directory (A)")
@@ -69,38 +71,37 @@ def log_to_file(filename: str, msg: str):
 def get_plural(files, s_or_is: bool = True):
   val = ''
 
-  if len(files) > 1 and s_or_is:
+  if (len(files) > 1 or len(files) == 0) and s_or_is:
     val = 's'
   
-  if len(files) > 1 and not s_or_is:
+  if (len(files) != 1) and not s_or_is:
     val = 'are'
 
-  if len(files) <= 1 and not s_or_is:
+  if len(files) == 1 and not s_or_is:
     val = 'is'
 
   return val
 
 def do_delete(files_to_delete):
   for f in files_to_delete:
-    os.remove(os.path.join(args.b, f))
-    log(args, log_file, f"Deleted {f}")
+    send2trash(os.path.join(args.b, f))
+    # os.remove(os.path.join(args.b, f))
+    log(args, log_file, f"Moved {f} to trash bin.")
 
 def do_copy(files_to_copy):
   for f in files_to_copy:
     src = os.path.join(args.a, f)
     dst = os.path.join(args.b, f)
-    error = os.system(f"cp '{src}' '{dst}'")
-    if error > 0:
-      raise RuntimeError()
+    path = shutil.copy2(src, dst)
     
-    log(args, log_file, f"Copied {f}")
+    log(args, log_file, f"Copied {f} to '{path}'.")
 
 def main(args, log_file):
   a_cnt = count_files(args.a)
   b_cnt = count_files(args.b)
 
-  log(args, log_file, f"{a_cnt} files in directory A ({args.a})")
-  log(args, log_file, f"{b_cnt} files in directory B ({args.b})")
+  log(args, log_file, f"{a_cnt} files in directory A ('{args.a}')")
+  log(args, log_file, f"{b_cnt} files in directory B ('{args.b}')")
 
   if a_cnt == 0:
     log(args, log_file, "No files in directory A")
@@ -113,9 +114,9 @@ def main(args, log_file):
   b_files = sorted(os.listdir(args.b))
 
   if args.list_all:
-    log(args, log_file, f"Files in Directory A ({args.a}): ")
+    log(args, log_file, f"{len(a_files)} files in directory A ('{args.a}'): ")
     print_files(a_files)
-    log(args, log_file, f"Files in Directory B ({args.b}): ")
+    log(args, log_file, f"{len(b_files)} files in directory B ('{args.b}'): ")
     print_files(b_files)
 
   if args.file_type:
@@ -153,11 +154,11 @@ def main(args, log_file):
     if do_list_files_to_copy == "" or do_list_files_to_copy == "y":
       print_files(files_to_copy)
   
-  if not args.c:
+  if not args.c and len(files_to_copy) > 0:
     copy = get_input(args, log_file, f"Copy files from A to B (Y/n)? ").lower()
     if copy == "" or copy == "y":
       do_copy(files_to_copy)
-  else:
+  elif len(files_to_copy) > 0:
     do_copy(files_to_copy)
 
   log(args, log_file, "Done!")
