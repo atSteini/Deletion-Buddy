@@ -27,7 +27,7 @@ pip3 --version
 After verifying the installation, you need to install the necessary python packages. You can do this using the following command
 
 ```bash
-pip install -r requierements.txt
+pip install -r requirements.txt
 ```
 
 , or on OSX
