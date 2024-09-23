@@ -5,6 +5,9 @@ from datetime import datetime
 import shutil
 from send2trash import send2trash
 
+EXIT_IF_A_EMPTY = True
+EXIT_IF_B_EMPTY = False
+
 parser = argparse.ArgumentParser(description="Delete files from dir B which are not in dir A")
 parser.add_argument("a", type=str, help="Source directory (A)")
 parser.add_argument("b", type=str, help="Destination directory (B)")
@@ -15,6 +18,8 @@ parser.add_argument("--l", action="store_true", help="List files to delete", def
 parser.add_argument("--list_all", action="store_true", help="List all files from both directories", default=False)
 parser.add_argument("--log", action="store_true", help="Log system messages.", default=True)
 parser.add_argument("--disable_print", action="store_true", help="Disable output to terminal.", default=False)
+parser.add_argument("--exit_if_a_empty", action="store_true", help="Whether to exit if A is empty or not.", default=True)
+parser.add_argument("--exit_if_b_empty", action="store_true", help="Whether to exit if B is empty or not.", default=False)
 
 def get_input(args, log_file, msg):
   ret = input(msg)
@@ -103,10 +108,10 @@ def main(args, log_file):
   log(args, log_file, f"{a_cnt} files in directory A ('{args.a}')")
   log(args, log_file, f"{b_cnt} files in directory B ('{args.b}')")
 
-  if a_cnt == 0:
+  if a_cnt == 0 and args.exit_if_a_empty:
     log(args, log_file, "No files in directory A")
     return
-  if b_cnt == 0:
+  if b_cnt == 0 and args.exit_if_b_empty:
     log(args, log_file, "No files in directory B")
     return
   
