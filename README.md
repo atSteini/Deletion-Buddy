@@ -1,6 +1,6 @@
 # Deletion Buddy
 
-A photography tool used to sync two folders, where folder A stores processed - and folder B raw pictures. 
+A photography tool used to sync two folders, where folder A stores processed - and folder B raw pictures.
 Often you sort out pictures in folder A and want to edit them later in folder B. If you don't want to delete the raw images from folder B as well, use this tool!
 
 ## Requirements
@@ -38,7 +38,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-```
+``` bash
 usage: deletion_buddy.py [-h] [--file_type [FILE_TYPE]] [--d] [--c] [--l] [--list_all] [--log] [--disable_print] a b
 
 Delete files from dir B which are not in dir A
@@ -58,4 +58,3 @@ options:
   --log                 Log system messages.
   --disable_print       Disable output to terminal.
 ```
-
